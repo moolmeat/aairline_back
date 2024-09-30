@@ -42,6 +42,7 @@ dependencies {
 
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
 
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
 
 tasks.named('test') {
