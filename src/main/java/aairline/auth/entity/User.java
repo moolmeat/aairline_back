@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,5 +34,7 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles")
     List<UserRole> userRoles;
+
+    private BigDecimal point;
 
 }

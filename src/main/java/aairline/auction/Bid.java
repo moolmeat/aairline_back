@@ -1,4 +1,4 @@
-package aairline.common.auction;
+package aairline.auction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
