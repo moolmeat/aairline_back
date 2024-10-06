@@ -1,27 +1,27 @@
-package aairline.auction;
+package aairline.auction.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Data;
 
 @Entity
 @Data
-public class Auction {
+public class AuctionItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private AuctionItem auctionItem;
-
-    private BigDecimal startPrice;
-    private BigDecimal currentPrice;
-    private Long highestBidderId;
+    private String itemName;
+    private BigDecimal startingPrice;
+    private String description;
+    private String category;
     private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDateTime limitTime;
+
+    public AuctionItem() {
+    }
 }

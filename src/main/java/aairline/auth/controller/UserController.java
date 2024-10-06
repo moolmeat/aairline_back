@@ -6,11 +6,14 @@ import aairline.auth.dto.UserDataDTO;
 import aairline.auth.dto.UserResponseDTO;
 import aairline.auth.entity.User;
 import aairline.auth.service.UserService;
+import aairline.common.response.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,8 +41,15 @@ public class UserController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "400", description = "잘못된 요청"),
     })
-    public String login(@RequestBody LoginRequest loginRequest) {
-        return userService.signin(loginRequest.getEmail(), loginRequest.getPassword());
+    public CustomResponse<String> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+        String token = userService.signin(loginRequest.getEmail(), loginRequest.getPassword());
+
+        Cookie jwtCookie = new Cookie("JWT-TOKEN", token);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setPath("/"); // 적용 경로 설정
+        response.addCookie(jwtCookie);
+
+        return CustomResponse.success("로그인 성공", token, 200);
     }
 
     @PostMapping("/signup")
