@@ -18,6 +18,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/auction-websocket").withSockJS();
+        registry.addEndpoint("/auction-websocket")
+            .setAllowedOrigins("http://localhost:3000")  // CORS 허용
+            .withSockJS();
     }
 }

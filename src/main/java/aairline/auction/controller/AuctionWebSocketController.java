@@ -2,7 +2,6 @@ package aairline.auction.controller;
 
 import aairline.auction.dto.BidRequestDto;
 import aairline.auction.entity.Auction;
-import aairline.auction.entity.AuctionItem;
 import aairline.auction.service.AuctionService;
 import aairline.auction.entity.Bid;
 import org.springframework.beans.factory.annotation.Autowired;

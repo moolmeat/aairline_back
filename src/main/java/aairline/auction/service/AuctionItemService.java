@@ -3,7 +3,9 @@ package aairline.auction.service;
 import aairline.auction.dto.AuctionItemRequestDto;
 import aairline.auction.entity.AuctionItem;
 import aairline.auction.repository.AuctionItemRepository;
+import aairline.common.request.PagingRequestDto;
 import aairline.common.response.CustomResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,10 @@ public class AuctionItemService {
         auctionItem.setLimitTime(auctionItemRequestDto.getLimitTime());
         auctionItemRepository.save(auctionItem);
         return CustomResponse.success("경매물건 등록에 성공하였습니다.", null, 201);
+    }
+
+    public  CustomResponse<List<AuctionItem>> getAuctionItems(int page, int size) {
+        List<AuctionItem> items = auctionItemRepository.findAuctionItems(page, size);
+        return CustomResponse.success("경매물건 조회에 성공하였습니다.", items, 200);
     }
 }
