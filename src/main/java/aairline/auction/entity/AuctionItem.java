@@ -19,8 +19,6 @@ public class AuctionItem {
     private BigDecimal startingPrice;
     private String description;
     private String category;
-    private LocalDateTime startTime;
-    private LocalDateTime limitTime;
 
     public AuctionItem() {
     }

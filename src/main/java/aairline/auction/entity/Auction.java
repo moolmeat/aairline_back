@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Data;
 
@@ -27,6 +28,8 @@ public class Auction {
     private BigDecimal currentPrice;
     private Long highestBidderId;
     private boolean isEnded;
+    private LocalDateTime startTime;
+    private LocalDateTime limitTime;
 
     @OneToMany(mappedBy = "auction", cascade = CascadeType.ALL)
     private List<Bid> bids;

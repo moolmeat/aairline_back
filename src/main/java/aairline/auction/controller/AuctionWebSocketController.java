@@ -23,27 +23,19 @@ public class AuctionWebSocketController {
         this.auctionService = auctionService;
     }
 
-    @MessageMapping("/bid/{auctionId}")
+    @MessageMapping("/placeBid")
     @SendTo("/topic/auction/{auctionId}")
-    public Auction processBid(@DestinationVariable Long auctionId,
-        @AuthenticationPrincipal UserDetails userDetails,
-        @RequestBody BidRequestDto bidRequestDto) throws Exception {
+    public Auction processBid(@DestinationVariable Long auctionId, @AuthenticationPrincipal UserDetails userDetails, BidRequestDto bidRequestDto) throws Exception {
         Bid bid = new Bid();
         bid.setBidAmount(bidRequestDto.getBidAmount());
         return auctionService.processBid(userDetails, auctionId, bid);
     }
 
-    @MessageMapping("/startAuction/{auctionId}")
+    @MessageMapping("/subscribeAuction")
     @SendTo("/topic/auction/{auctionId}")
-    public Auction startAuction(@DestinationVariable Long auctionId,
-        @AuthenticationPrincipal UserDetails userDetails) {
-        return auctionService.startAuction(userDetails, auctionId);
-    }
-
-    @MessageMapping("/endAuction/{auctionId}")
-    @SendTo("/topic/auction/{auctionId}")
-    public Auction endAuction(@DestinationVariable Long auctionId,
-        @AuthenticationPrincipal UserDetails userDetails) {
-        return auctionService.endAuction(userDetails, auctionId);
+    public Auction getAuction(@DestinationVariable Long auctionId) {
+        // 경매 정보를 서버에서 가져와서 실시간으로 방송
+        return auctionService.getAuctionById(auctionId);
     }
 }
+
